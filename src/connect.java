@@ -1,9 +1,6 @@
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class connect {
     private final String serverName = "localhost";
@@ -11,12 +8,11 @@ public class connect {
     private final String dbName = "User";
     private final String userID = "sa";
     private final String password = "12345";
-    private final String instance = ""; // Nếu có instance thì điền vào đây
+    private final String instance = ""; // Nếu có instance thì điền tên instance vào đây
 
     public Connection getConnection() {
         Connection conn = null;
         try {
-            // Chuỗi kết nối với encrypt=true và trustServerCertificate=true
             String url = "jdbc:sqlserver://" + serverName + ":" + portNumber;
             if (instance != null && !instance.trim().isEmpty()) {
                 url += "\\" + instance;
@@ -28,13 +24,13 @@ public class connect {
 
             // Kết nối tới SQL Server
             conn = DriverManager.getConnection(url, userID, password);
-            System.out.println("Kết nối thành công!");
+            System.out.println("Connection successful!");
 
         } catch (ClassNotFoundException e) {
-            System.err.println("Lỗi: Không tìm thấy driver JDBC.");
+            System.err.println("Error: JDBC driver not found.");
             e.printStackTrace();
         } catch (SQLException e) {
-            System.err.println("Lỗi kết nối cơ sở dữ liệu:");
+            System.err.println("Database connection error:");
             e.printStackTrace();
         }
         return conn;
